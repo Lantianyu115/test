@@ -1,71 +1,96 @@
-# Yelp Search & Analytics App
- 
-**Project Option:** NoSQL (Solo)  
-**Author:** Zhengjia Zhou  
+# CSCI-566 Assignment 2
 
----
+## The objectives of this assignment
+* Implement Variational Autoencoders (VAEs)
+* Implement Generative Adversarial Networks (GANs)
 
-### Project Overview
+## Working on the Assignment
+**We highly recommend the use of Google Colab, so that you can use free GPUs to speed up training and to ensure that there are no environment/package issues.  We have tested the code on Colab, so it should run smoothly there!**
 
-This is a data-driven web application designed to help users explore local businesses, analyze market trends, and read customer reviews using the Yelp Open Dataset.
+Without it, training will be painfully slow.
 
+To do this, simply click on this "Open in Colab" button at the top of each notebook while viewing the notebook on Github. **Please ensure that version is the same as the one you see on Colab.  If you see a different version, please make a Piazza post notifying us.**
 
-### Project Structure
+You can then make a copy of the notebook in Google Colab (`Copy to Drive`) and start working on it!
 
-* `app.py`: The main entry point for the Web Application. Contains the UI logic and integrates the custom parser/functions.
-* `project.ipynb`: The development notebook containing the raw implementation, validation tests, and debugging of the parser/operations.
-* `business.json`: Yelp Business dataset 
-* `tip.json`: Yelp Tip dataset 
-* `README.md`: Project documentation.
+**Remember to use a GPU**: Click Runtime -> Change runtime type -> Select GPU as the Hardware accelerator.
 
+If you really want to use your own computer, see the following instructions:
+________________________________________________________
+You will need to make sure that your virtualenv setup is of the correct version of python.
 
-### Prerequisites
+Please see below for executing a virtual environment.
+```shell
+cd csci566-assignment2
+pip3 install virtualenv # If you didn't install it
 
-To run this project, you need:
+# replace your_virtual_env with the virtual env name you want
+virtualenv -p $(which python3) your_virtual_env
+source your_virtual_env/bin/activate
 
-1.  **Python** installed on your system.
-2.  **Streamlit** library.
-3.  **Yelp Dataset Files**: Ensure `business.json` and `tip.json` are present in the **root directory** of the project.
+# install dependencies
+pip3 install -r requirements.txt
 
+# work on the assignment
+deactivate # Exit the virtual environment
+```
+To start working on the assignment, simply run the following command to start an ipython kernel.
+```shell
+# add your virtual environment to jupyter notebook
+source your_virtual_env/bin/activate
+python -m ipykernel install --user --name=your_virtual_env
 
-### Installation
+# port is only needed if you want to work on more than one notebooks
+jupyter notebook --port=your_port_number
 
-1.  Open your terminal or command prompt (e.g., Anaconda Prompt).
-2.  Navigate to the project directory:
-    ```bash
-    cd path/to/your/project_folder
-    ```
-3.  Install the required UI library:
-    ```bash
-    pip install streamlit
-    ```
-    
+```
+and then work on each problem with their corresponding `.ipynb` notebooks.
+Check the python environment you are using on the top right corner.
+If the name of environment doesn't match, change it to your virtual environment in "Kernel>Change kernel".
 
-## How to Run the Application
+## Problems
+In each of the notebook file, we indicate `TODO` or `Your Code` for you to fill in with your implementation.
 
-1.  Ensure your terminal is inside the project folder.
-2.  Run the application using the Streamlit command:
-    ```bash
-    streamlit run app.py
-    ```
-3.  The application will automatically open in your default web browser.
+### Problem 1: Variational Autoencoders (45 points)
+The IPython Notebook `CSCI566_Assignment2_problem_1_VAE.ipynb` will walk you through implementing VAEs with PyTorch.
 
+### Problem 2: GANs for Image Generation (37 points)
+The IPython Notebook `CSCI566_Assignment2_problem_2_GAN.ipynb` will walk you through implementing a GAN with PyTorch.
 
-### Testing the Parser & Functions
+## How to submit
 
-If you wish to examine the underlying logic, algorithms, and unit tests for the parser and data operations, please refer to the Jupyter Notebook:
+Run the following command to zip all the necessary files for submitting your assignment. Note that, in addition to your notebook **with all cell outputs** you will need to manually create a submission PDF for each problem set that compiles all generated plots / answers. Detailed instructions are at the end of the notebooks. The command below aggregates all notebooks and solution PDFs.
 
-1.  Launch Jupyter Notebook:
-    ```bash
-    jupyter notebook
-    ```
-2.  Open **`project.ipynb`**.
-3.  Run the cells sequentially to see demonstrations of:
-    * Parsing logic tests (Handling Nested objects, Arrays, Booleans).
-    * Individual function verification (`filtering`, `join_data`, etc.).
+**If using Colab, remember to download the .ipynb files locally!!!**
 
+```shell
+sh collectSubmission.sh
+```
 
-### Acknowledgments
+This will create a file named `assignment2.zip`, **please rename it with your usc student id (eg. 4916525888.zip)**, and submit this file through Gradescope.
+Do NOT create your own .zip file, you might accidentally include non-necessary materials for grading.
+We will deduct points if you don't follow the above submission guideline.
 
-* **Dataset**: Yelp Open Dataset.
-* **Tech Stack**: Python (Core Logic), Streamlit (UI).
+**VERIFY THAT THE `assignment2.zip` CONTAINS THE IPYNB FILES AND THE PDFS (Follow the instructions each notebook to create the respective PDF)**
+
+**!! SUBMIT YOUR NOTEBOOK INCLUDING ALL CELL OUTPUTS, WE WILL NOT RERUN YOUR NOTEBOOKS !!**
+
+## Questions?
+If you have any question or find a bug in this assignment (or even any suggestions), we are more than welcome to assist through Piazza.
+
+Again, NO INDIVIDUAL EMAILS WILL BE RESPONDED.
+
+PLEASE USE **PIAZZA** TO POST QUESTIONS (under folder assignment1).
+
+## FAQ
+
+- Can I reuse the virtualenv from Assignment 1?
+You can reuse the virtual environment but maybe you need to install some missing packages using pip3 install -r requirements.txt.
+Maybe simpler is to create a new virtualenv, we give instructions above.
+- My reconstruction loss for Problem 2.4 is higher than 0.145?
+You should achieve a reconstruction loss lower than 0.145 for full credit.
+
+- **General debugging tips**
+1. Make sure your implementations matches the specified model layers perfectly.
+2. Put print statements at various places inside your implementation code to make sure every module is working as it should. 
+(but please remove any additional print statements for submission)
